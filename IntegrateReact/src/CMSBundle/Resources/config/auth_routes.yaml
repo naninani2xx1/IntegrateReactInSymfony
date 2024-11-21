@@ -1,0 +1,6 @@
+cms_auth_login:
+  path: /login
+  controller: App\CMSBundle\Controller\AuthController::login
+
+cms_auth_logout:
+  path: /logout

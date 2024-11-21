@@ -6,10 +6,23 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
+        cms_user_provider:
+            entity:
+                class: App\CMSBundle\Entity\User
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        cms:
+            lazy: true
+            provider: cms_user_provider
+            pattern: ^/cms
+            logout:
+                path: cms_auth_logout
+                target: cms_auth_login
+            custom_authenticators:
+                - App\CMSBundle\Security\UserAuthenticator
         main:
             lazy: true
             provider: users_in_memory
